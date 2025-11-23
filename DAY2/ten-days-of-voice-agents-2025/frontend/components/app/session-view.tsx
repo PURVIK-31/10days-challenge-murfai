@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import type { AppConfig } from '@/app-config';
 import { ChatTranscript } from '@/components/app/chat-transcript';
 import { PreConnectMessage } from '@/components/app/preconnect-message';
+import { CoffeeDisplay } from '@/components/app/coffee-display';
 import { TileLayout } from '@/components/app/tile-layout';
 import {
   AgentControlBar,
@@ -108,6 +109,9 @@ export const SessionView = ({
           />
         </ScrollArea>
       </div>
+
+      {/* Coffee Display */}
+      <CoffeeDisplay />
 
       {/* Tile Layout */}
       <TileLayout chatOpen={chatOpen} />

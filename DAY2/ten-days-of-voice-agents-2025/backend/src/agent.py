@@ -27,7 +27,7 @@ load_dotenv(".env.local")
 
 
 class Assistant(Agent):
-    def __init__(self) -> None:
+    def __init__(self, room) -> None:
         super().__init__(
             instructions="""You are a friendly and efficient barista at "Java Joy", a premium coffee shop.
             Your goal is to take the customer's coffee order.
@@ -40,10 +40,40 @@ class Assistant(Agent):
             5. Customer Name
 
             Ask clarifying questions if any information is missing. Be polite and conversational.
+
+            IMPORTANT: Whenever the customer provides or changes any order details (drink, size, milk, extras), you MUST immediately call the "update_order" tool to update the visual display. Do this even if the order is not yet complete.
+
             Once you have all the details, confirm the order with the customer.
             After confirmation, call the "submit_order" tool to save the order.
             """,
         )
+        self.room = room
+
+    @function_tool
+    async def update_order(
+        self,
+        context: RunContext,
+        drink_type: Annotated[str, "The type of coffee drink (e.g., Latte, Cappuccino)"],
+        size: Annotated[str, "The size of the drink (Small, Medium, Large)"],
+        milk: Annotated[str, "The type of milk (Whole, Skim, Oat, Almond, Soy, None)"],
+        extras: Annotated[list[str], "List of extras (e.g., Vanilla Syrup, Whipped Cream)"],
+    ):
+        """
+        Update the visual display of the order as the customer speaks. Call this whenever the customer changes or adds details to their order.
+        """
+        logger.info(f"Updating order preview: {size} {drink_type}")
+        order_data = {
+            "drinkType": drink_type,
+            "size": size,
+            "milk": milk,
+            "extras": extras,
+        }
+        
+        await self.room.local_participant.publish_data(
+            json.dumps(order_data),
+            topic="order_update"
+        )
+        return "Display updated."
 
     @function_tool
     async def submit_order(
@@ -150,7 +180,7 @@ async def entrypoint(ctx: JobContext):
 
     # Start the session, which initializes the voice pipeline and warms up the models
     await session.start(
-        agent=Assistant(),
+        agent=Assistant(ctx.room),
         room=ctx.room,
         room_input_options=RoomInputOptions(
             # For telephony applications, use `BVCTelephony` for best results
