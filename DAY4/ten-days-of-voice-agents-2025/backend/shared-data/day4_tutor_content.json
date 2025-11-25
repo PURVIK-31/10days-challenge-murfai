@@ -1,0 +1,32 @@
+[
+  {
+    "id": "variables",
+    "title": "Variables",
+    "summary": "Variables store values so you can reuse them later. Think of a variable like a labeled box where you can put information. You give it a name, like 'age' or 'username', and store a value in it. Later, you can use that name to get the value back or change it. Variables are fundamental to programming because they let you work with data that can change.",
+    "sample_question": "What is a variable and why is it useful in programming?"
+  },
+  {
+    "id": "loops",
+    "title": "Loops",
+    "summary": "Loops let you repeat an action multiple times without writing the same code over and over. There are two main types: 'for' loops, which repeat a set number of times, and 'while' loops, which repeat as long as a condition is true. Loops are essential for handling repetitive tasks efficiently.",
+    "sample_question": "Explain the difference between a for loop and a while loop."
+  },
+  {
+    "id": "functions",
+    "title": "Functions",
+    "summary": "Functions are reusable blocks of code that perform a specific task. You define a function once with a name and parameters, then you can call it whenever you need that task done. Functions help organize code, make it more readable, and avoid repetition. They can take inputs called parameters and return outputs.",
+    "sample_question": "What is a function and how does it help organize your code?"
+  },
+  {
+    "id": "conditionals",
+    "title": "Conditionals",
+    "summary": "Conditionals allow your program to make decisions based on conditions. The most common conditional is the 'if' statement, which executes code only when a condition is true. You can also use 'else' for when the condition is false, and 'elif' for multiple conditions. Conditionals give your programs the ability to respond differently to different situations.",
+    "sample_question": "How do if statements work and when would you use them?"
+  },
+  {
+    "id": "data_structures",
+    "title": "Data Structures",
+    "summary": "Data structures are ways to organize and store multiple pieces of data efficiently. Common examples include lists or arrays that store ordered items, dictionaries or objects that store key-value pairs, and sets that store unique values. Choosing the right data structure makes your code faster and easier to work with.",
+    "sample_question": "What are data structures and can you name a few common ones?"
+  }
+]
